@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const connection = mongoose.connect('mongodb://localhost:27017/BirdsDatabase', {
+const connection = mongoose.connect('mongodb://localhost:27017/birdDatabase', {
   useNewUrlParser: true,
   useFindAndModify: true,
   useUnifiedTopology: true,
@@ -10,3 +10,4 @@ const connection = mongoose.connect('mongodb://localhost:27017/BirdsDatabase', {
 mongoose.set('debug', true)
 
 module.exports = connection
+
