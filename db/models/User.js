@@ -2,6 +2,10 @@ const {Schema} = require('mongoose')
 
 module.exports = new Schema (
    {
+       user_id:{
+           type: Schema.Types.ObjectId,
+           ref: 'users'
+       },
        profilePicture: {
            type: String,
        },
@@ -21,11 +25,11 @@ module.exports = new Schema (
        },
        posts: {
            type: Schema.Types.ObjectId,
-           ref: 'posts'
+           ref: 'post'
        },
        favoriteBird: {
            type: Schema.Types.ObjectId,
-           ref: 'favoriteBirds' 
+           ref: 'favoriteBird' 
        }
    },
    {timestamps: true}
