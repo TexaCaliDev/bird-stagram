@@ -1,33 +1,50 @@
+
 const {
     Post
 } = require('../db/schema')
 
-const GetPosts = async (req, res) => {
+const GetPostById = async (req, res) => {
     try {
-      const { page, limit } = req.query
-      const offset =
-        page === '1' ? 0 : Math.floor(parseInt(page) * parseInt(limit))
-      const posts = await Post.find()
-        .limit(parseInt(limit))
-        .skip(offset)
-        .sort({ popularity_rating: 'desc' })
-      res.send(posts)
+      const post = await post.findById(req.params.post_id).populate([
+        {
+          model: 'posts',
+          path: 'post_id',
+          select: '_id post'
+        },
+        {
+          path: 'posts',
+          populate: {
+            path: 'post_id',
+            model: 'posts',
+            select: '_id post'
+          }
+        }
+      ])
+      res.send(post)
     } catch (error) {
       throw error
     }
   }
-const CreatePost = async (req, res) => {
+
+
+  const CreatePost = async (req, res) => {
+    console.log(req.body)
     try {
-        const newPost = new Post({
-            ...req.body,
-            user_id: req.params.user_id
-        })
-        newPost.save()
-        res.send(newPost)
+                      
+      const post = new Post({
+      
+       
+       birdName: req.params.birdName,
+       description: req.params.description,
+       region: req.params.description,
+       rarity: req.params.rarity
+      })
+      post.save()
+      res.send(post)
     } catch (error) {
-        throw error
+      throw error
     }
-}
+  }
 
 const DeletePost = async (req, res) => {
     try {
@@ -40,19 +57,25 @@ const DeletePost = async (req, res) => {
     }
 }
 
-const UpdatePost = async (req, res) => {
-    try {
-        await Post.find({
-            Post: req.params.post_id
-        })
-    } catch (error) {
-        throw error
-    }
-}
+// const UpdatePost = async (req, res) => {
+//   try {
+//     await Post.findByIdAndUpdate(
+//       req.params.post_id,
+//       {
+//         ...req.body
+//       },
+//       { new: true, useFindAndModify: false },
+//       (error, (d) => (error ? error : res.send(d)))
+//     )
+//   } catch (error) {
+//     throw error
+//   }
+// }
 
 module.exports = {
-    GetPosts,
+ 
     CreatePost,
     DeletePost,
-    UpdatePost
+    // UpdatePost,
+    GetPostById
 }

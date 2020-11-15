@@ -5,18 +5,24 @@ const {
 module.exports = new Schema({
     picture: {
         type: String,
-        required: true
+        
+    },
+    user_Id: {
+        type: Schema.Types.ObjectId,
+        ref: 'users'
+        
     },
     birdName: {
         type: String,
-        required: true
+        
     },
     description: {
         type: String,
-        required: true
     },
-    Region: {
+    region: {
         type: String,
-        required: true
+    },
+    rarity: {
+        type: Number,
     }
 })
